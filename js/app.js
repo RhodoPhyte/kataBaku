@@ -54,7 +54,7 @@ function answer(e) {
         answerText.textContent = answerString;
         answerText.classList.remove('wrong');
         answerText.classList.add('correct');
-        correctCount += 1;
+        correctCount += 2;
         correctStat.textContent = correctCount;
         if (sound) {
             correctSound.play();
