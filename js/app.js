@@ -14,6 +14,7 @@ const answerText = document.querySelector('.answer-text');
 
 let lastIndex = -1;
 let index = -1;
+let lastQuestionType = ''; // Track the last question type
 
 let correctCount = 0;
 let wrongCount = 0;
@@ -32,16 +33,21 @@ soundButton.addEventListener("click", function () {
 });
 
 function SetUp() {
-    while (index === lastIndex) {
+    // Ensure the new question is of a different type than the last one
+    let correctButton;
+    do {
         index = Math.floor(Math.random() * baku.length);
-    }
-    const correctButton = Math.floor(Math.random() * 2);
+        correctButton = Math.floor(Math.random() * 2);
+    } while ((correctButton === 0 && lastQuestionType === 'baku') || (correctButton === 1 && lastQuestionType === 'tidak baku'));
+
     if (correctButton === 0) {
         btn1.textContent = baku[index];
         btn2.textContent = tidakBaku[index];
+        lastQuestionType = 'baku'; // Update last question type
     } else {
         btn1.textContent = tidakBaku[index];
         btn2.textContent = baku[index];
+        lastQuestionType = 'tidak baku'; // Update last question type
     }
     lastIndex = index;
 }
