@@ -6,6 +6,7 @@ const btn2 = document.querySelector('.btn-2');
 
 const correctStat = document.querySelector('.correct-count');
 const wrongStat = document.querySelector('.wrong-count');
+const lifeStat = document.querySelector('.life-count'); // Elemen buat display lives
 
 btn1.addEventListener('click', answer);
 btn2.addEventListener('click', answer);
@@ -17,6 +18,7 @@ let index = -1;
 
 let correctCount = 0;
 let wrongCount = 0;
+let lives = 5; // Starting lives
 
 const correctSound = new Audio("https://acomarcho.github.io/kataBaku/audio/correct.wav");
 const wrongSound = new Audio("https://acomarcho.github.io/kataBaku/audio/wrong.mp3");
@@ -66,6 +68,18 @@ function answer(e) {
         answerText.classList.add('wrong');
         wrongCount += 1;
         wrongStat.textContent = wrongCount;
+        
+        lives -= 1; // Decrease life count
+        lifeStat.textContent = `Lives: ${lives}`; // Update life display
+        
+        if (lives <= 0) {
+            alert("Game Over! Your correct answers have been reset.");
+            correctCount = 0; // Reset correct count
+            correctStat.textContent = correctCount; // Update display
+            lives = 3; // Reset lives
+            lifeStat.textContent = `Lives: ${lives}`; // Update display
+        }
+        
         if (sound) {
             wrongSound.play();
         }
